@@ -18,15 +18,23 @@ Freshly scaffolded? Work the
 guide page, not a file in this repo — read it, don't copy it in.
 
 Keep `README.md` (technical reference for an AI support or administering agent) and
-`instructions.md` (end-user docs) in sync with your changes.
+`instructions.md` (end-user docs) in sync with your changes. This file restates neither:
+whoever changes the package has both, so it carries only what they don't — repo mechanics,
+a change that looks right and is not, where the next thing gets added, a naming trap, a
+build or test invocation particular to this repo.
 
-**Bugs and feature requests are GitHub issues on this repo** — file them as you find them.
+**Fix a defect you spot rather than reporting it** — you have the package open and the
+context to be sure. File **a GitHub issue on this repo** only when the call isn't yours to
+make: you can't pin the cause down, two defensible fixes exist, or it's too large to ride on
+the work in hand. An open issue is a report, not a queue — implement one when you're asked
+to or when it's labelled `Approved`, then close it with `Closes #<n>`.
+
 Don't record work in the repo instead: no `TODO.md`, no `NOTES.md`, no `PLAN.md`. What you
 verified, tried, and decided belongs in the commit message and the PR body.
 
 ## This repo
 
-- **`startos-server-entrypoint.sh` baselines a pre-migrations database and must run before the app's own entrypoint.** It marks the initial migration applied when it finds a `users` table with no matching migration row; without it, an install that predates migrations gets the initial schema replayed over live data.
-- **`WEBAUTHN_RP_ID`/`WEBAUTHN_ORIGIN`/`CORS_ORIGINS` are pinned to loopback.** That is correct for the same-origin API proxy but wrong for passkeys, which bind to the address the browser actually used — a real fix means deriving them from the service's primary URL, not widening CORS.
-- **Postgres is started with an explicit `listen_addresses=127.0.0.1`.** It shares the service network namespace with the other subcontainers, and nothing else should be able to reach it.
-- **`reset-password` hashes with the application's own argon2, in a throwaway `server` container.** `argon2.verify` reads its parameters out of the hash string, so a hash produced any other way may look right and fail to validate. Don't reimplement the hashing here.
+- **Keep `startos-server-entrypoint.sh` ahead of the app's own entrypoint.** Without its baseline, an install that predates migrations gets the initial schema replayed over live data.
+- **Don't widen `CORS_ORIGINS` to make passkeys work.** Passkeys bind to the address the browser used, so the fix is deriving `WEBAUTHN_RP_ID`/`WEBAUTHN_ORIGIN` from a primary URL.
+- **Keep Postgres on `listen_addresses=127.0.0.1`.** It shares the service network namespace with the other subcontainers.
+- **Don't reimplement `reset-password`'s hashing.** It must use the application's own argon2, in a throwaway `server` container, or the hash may look right and fail to validate.
