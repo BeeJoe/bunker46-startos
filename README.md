@@ -79,7 +79,7 @@ One model, and it is the package's whole secret store.
 | ------------ | ------ | ----------------------- | ---------------------------- |
 | `store.json` | JSON   | Yes — `FileHelper.json` | Init, `main`, and one action |
 
-It holds four generated secrets — the database password, two JWT signing secrets, and the application's **encryption key** — plus one setting, whether new-user registration is permitted.
+It models four generated secrets — the database password, two JWT signing secrets, and the application's **encryption key** — plus one setting, whether new-user registration is permitted. Unknown fields are preserved when secrets are seeded or registration settings change.
 
 **The encryption key is the one that matters.** It is what the application encrypts stored Nostr keys with, so `store.json` and the database are two halves of one secret: either alone recovers nothing. Both are in the backup, which is what makes a restore work and what makes the backup sensitive.
 
