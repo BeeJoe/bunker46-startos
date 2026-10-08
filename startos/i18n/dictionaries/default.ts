@@ -19,13 +19,14 @@ const dict = {
   'Enable Registrations': 10,
   'New-user registration is currently enabled. Run this action to prohibit new sign-ups.': 11,
   'New-user registration is currently disabled. Run this action to permit new sign-ups.': 12,
-  'Anyone who can reach your Bunker46 address can create an account. Disable registration once you have created your own account.': 13,
+  'Anyone who can reach your Bunker46 address can create an account until you disable registration again. If Bunker46 is running, it restarts to apply the change.': 13,
+  'No one else can create an account until you enable registration again. If Bunker46 is running, it restarts to apply the change.': 24,
 
   // actions/resetPassword.ts
   'Reset Account Password': 14,
   'Generate a new password for an existing account — use this if you are locked out and cannot sign in.': 15,
   Account: 16,
-  'The account whose password will be reset.': 17,
+  'The account to give a new password. Its current password stops working as soon as this runs.': 17,
   'No accounts exist yet. Create your account in the web UI first.': 18,
   Success: 19,
   'Password reset. Log in with the new credentials below.': 20,

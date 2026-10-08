@@ -122,7 +122,7 @@ One action that reads its own name from current state, so it presents as whichev
 - **What it changes:** the registration flag in the store, which becomes the server's environment on restart.
 - **Cost:** the server restarts.
 - **Repeat safety:** idempotent — it toggles, so running it twice returns to where you started.
-- **When enabled, anyone who can reach the address can create an account.** The action says so in its warning while registration is on. Turn it off once your own account exists.
+- **Confirmation:** both directions ask before running. Enabling warns that anyone who can reach the address can create an account until registration is disabled again; disabling warns that no one else can create one until it is re-enabled. Both say the service restarts if it is running. Turn registration off once your own account exists.
 
 ### Reset Account Password
 
@@ -132,7 +132,7 @@ Generates a new password for an existing account. Run it if you are locked out.
 - **What it changes:** the selected account's password hash, directly in the database.
 - **Cost:** seconds; no restart, and other accounts are untouched.
 - **Repeat safety:** each run generates a **new** password and invalidates the previous one.
-- **Input:** a dropdown of existing accounts, read live from the database. **It fails outright when no account exists yet**, with a message saying to create one in the web interface first — that is the expected response on a fresh install, not a fault.
+- **Input:** a dropdown of existing accounts, read live from the database, with none preselected — the selected account's current password stops working when the action runs. **It fails outright when no account exists yet**, with a message saying to create one in the web interface first — that is the expected response on a fresh install, not a fault.
 - **Outputs:** the username and the new password, shown once and never stored.
 
 The new password is hashed by running the **application's own** hashing code in a throwaway container, so the resulting hash validates against the running server rather than merely looking correct.

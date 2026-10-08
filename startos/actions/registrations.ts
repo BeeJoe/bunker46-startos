@@ -24,9 +24,11 @@ export const registrations = sdk.Action.withoutInput(
           ),
       warning: allowed
         ? i18n(
-            'Anyone who can reach your Bunker46 address can create an account. Disable registration once you have created your own account.',
+            'No one else can create an account until you enable registration again. If Bunker46 is running, it restarts to apply the change.',
           )
-        : null,
+        : i18n(
+            'Anyone who can reach your Bunker46 address can create an account until you disable registration again. If Bunker46 is running, it restarts to apply the change.',
+          ),
       allowedStatuses: 'any',
       group: null,
       visibility: 'enabled',

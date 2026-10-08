@@ -20,8 +20,7 @@ Before changing the pin, verify that the candidate still contains the production
 
 ```sh
 npm ci
-npm run check
-npm run build
+rm -rf javascript && make javascript/index.js
 make
 ```
 

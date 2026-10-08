@@ -69,8 +69,10 @@ export const resetPassword = sdk.Action.withInput(
     return InputSpec.of({
       username: Value.select({
         name: i18n('Account'),
-        description: i18n('The account whose password will be reset.'),
-        default: usernames[0],
+        description: i18n(
+          'The account to give a new password. Its current password stops working as soon as this runs.',
+        ),
+        default: null,
         values: Object.fromEntries(usernames.map((u) => [u, u])),
       }),
     })

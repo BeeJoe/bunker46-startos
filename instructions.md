@@ -27,7 +27,7 @@ Bunker46 is a self-hosted NIP-46 Nostr key manager. It stores your nsec keys enc
 New-user registration is **disabled by default**. Bunker46 still shows the sign-up screen while no accounts exist, so you can create the first account during setup. After that, no one else can register unless you enable registrations yourself.
 
 - **Forgot your password?** Run the **Reset Account Password** action, pick your account from the dropdown, and StartOS generates and shows a new password for it. Since passkeys are tied to one web address and may not work across all of your StartOS URLs, this action is your reliable recovery path.
-- **Want to let others sign up?** Run the **Registrations** action to enable open sign-ups temporarily (run it again to disable). The change takes effect when the service restarts.
+- **Want to let others sign up?** Run the **Enable Registrations** action to open sign-ups temporarily, and **Disable Registrations** to close them again. Each asks for confirmation first, and Bunker46 restarts to apply the change.
 
 ## Backups
 
